@@ -1,0 +1,25 @@
+local Figure = script.Parent
+local Head = Figure:WaitForChild("Head")
+local Humanoid = Figure:WaitForChild("Humanoid")
+local regening = false
+
+local Model = script.Parent
+local Backup = Model:clone()
+
+-- regeneration
+function Respawn()
+	Model:breakJoints()
+
+	wait(5)  --Seconds to respawn
+
+	script.Parent = Model.Parent
+
+	Model:remove()
+	Model = Backup:clone()
+	Model.Parent = script.Parent
+	Model:makeJoints()
+
+	script:remove()
+end
+
+Model.Humanoid.Died:connect(Respawn)
